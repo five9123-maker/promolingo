@@ -325,13 +325,7 @@ export default function SpreadsheetGrid({
   }
 
   return (
-    <div className="relative flex-1 overflow-auto">
-      {isLoading && (
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-emerald-200 border-t-emerald-600" />
-          <p className="mt-2 text-sm font-medium text-gray-500">번역 중...</p>
-        </div>
-      )}
+    <div className="relative flex flex-1 flex-col">
       {onSourceLanguageChange && onTargetLanguagesChange && (
         <EventSetForm
           sourceLanguage={sourceLanguage}
@@ -340,7 +334,14 @@ export default function SpreadsheetGrid({
           onTargetLanguagesChange={onTargetLanguagesChange}
         />
       )}
-      <table className="w-full border-collapse">
+      <div className="relative min-h-0 flex-1 overflow-auto">
+        {isLoading && (
+          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/60 backdrop-blur-sm">
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-emerald-200 border-t-emerald-600" />
+            <p className="mt-2 text-sm font-medium text-gray-500">번역 중...</p>
+          </div>
+        )}
+        <table className="w-full border-collapse">
         <thead className="sticky top-0 z-10 bg-gray-50">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -397,6 +398,7 @@ export default function SpreadsheetGrid({
           />
         ) : null;
       })()}
+      </div>
     </div>
   );
 }
