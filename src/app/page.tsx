@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useRef } from 'react';
 import Header from '@/components/layout/Header';
-import EventSetForm from '@/components/event/EventSetForm';
 import SpreadsheetGrid from '@/components/spreadsheet/SpreadsheetGrid';
 import BriefSidePanel from '@/components/brief/BriefSidePanel';
 import AssetConfigModal, {
@@ -208,16 +207,6 @@ export default function Home() {
         onEventNameChange={setEventName}
         onShowTutorial={() => setShowTutorial(true)}
       />
-      <EventSetForm
-        sourceLanguage={sourceLanguage}
-        targetLanguages={targetLanguages}
-        onSourceLanguageChange={handleSourceLanguageChange}
-        onTargetLanguagesChange={(langs) => {
-          setTargetLanguages(langs);
-          ensureLangMaxLengths(langs);
-        }}
-      />
-
       {/* Main content: side panel + spreadsheet */}
       <div className="flex flex-1 overflow-hidden">
         <BriefSidePanel
@@ -240,6 +229,11 @@ export default function Home() {
           onLangMaxLengthChange={updateLangMaxLength}
           onRemoveAsset={removeAsset}
           onRetranslateError={handleRetranslateError}
+          onSourceLanguageChange={handleSourceLanguageChange}
+          onTargetLanguagesChange={(langs) => {
+            setTargetLanguages(langs);
+            ensureLangMaxLengths(langs);
+          }}
         />
       </div>
 

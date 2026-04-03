@@ -15,6 +15,7 @@ import EditableCell from './EditableCell';
 import ColumnHeader from './ColumnHeader';
 import StepBadge from '@/components/common/StepBadge';
 import SourceOptionsPopup from './SourceOptionsPopup';
+import EventSetForm from '@/components/event/EventSetForm';
 
 interface EventContext {
   eventType: string;
@@ -37,6 +38,8 @@ interface SpreadsheetGridProps {
   onLangMaxLengthChange: (assetId: string, langCode: string, maxLength: number) => void;
   onRemoveAsset: (assetId: string) => void;
   onRetranslateError?: (message: string) => void;
+  onSourceLanguageChange?: (lang: string) => void;
+  onTargetLanguagesChange?: (langs: string[]) => void;
 }
 
 interface RowData {
@@ -64,6 +67,8 @@ export default function SpreadsheetGrid({
   onLangMaxLengthChange,
   onRemoveAsset,
   onRetranslateError,
+  onSourceLanguageChange,
+  onTargetLanguagesChange,
 }: SpreadsheetGridProps) {
   const { db: presetDB } = useAssetPresetDB();
   const [loadingCells, setLoadingCells] = useState<Record<string, boolean>>({});
@@ -327,10 +332,14 @@ export default function SpreadsheetGrid({
           <p className="mt-2 text-sm font-medium text-gray-500">번역 중...</p>
         </div>
       )}
-      <div className="flex items-center gap-1.5 px-2 py-1">
-        <StepBadge step={6} label="번역 결과 수정 (재생성, 글자수 줄이기 등)" />
-        <span className="text-[10px] text-gray-400">시트에서 직접 수정</span>
-      </div>
+      {onSourceLanguageChange && onTargetLanguagesChange && (
+        <EventSetForm
+          sourceLanguage={sourceLanguage}
+          targetLanguages={targetLanguages}
+          onSourceLanguageChange={onSourceLanguageChange}
+          onTargetLanguagesChange={onTargetLanguagesChange}
+        />
+      )}
       <table className="w-full border-collapse">
         <thead className="sticky top-0 z-10 bg-gray-50">
           {table.getHeaderGroups().map((headerGroup) => (
