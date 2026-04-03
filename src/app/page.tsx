@@ -224,6 +224,7 @@ export default function Home() {
           onAnalysisComplete={handleAnalysisComplete}
           onAssetsConfirm={handleSidePanelAssetsConfirm}
           onAddAsset={() => setShowAssetSelector(true)}
+          onEventNameChange={setEventName}
         />
         <SpreadsheetGrid
           assets={assets}

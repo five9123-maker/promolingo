@@ -23,6 +23,7 @@ interface BriefSidePanelProps {
   onAnalysisComplete: (result: BriefAnalysisResult) => void;
   onAssetsConfirm: (assets: SuggestedAsset[]) => void;
   onAddAsset?: () => void;
+  onEventNameChange?: (name: string) => void;
 }
 
 let nextId = 0;
@@ -31,6 +32,7 @@ export default function BriefSidePanel({
   onAnalysisComplete,
   onAssetsConfirm,
   onAddAsset,
+  onEventNameChange,
 }: BriefSidePanelProps) {
   const { db: presetDB } = useAssetPresetDB();
   const [state, setState] = useState<PanelState>('input');
@@ -156,7 +158,7 @@ export default function BriefSidePanel({
   return (
     <div className="flex w-64 flex-shrink-0 flex-col border-r border-gray-200 bg-gray-50/50">
       {/* ClickUp Search */}
-      <ClickUpSearchBar />
+      <ClickUpSearchBar onTaskLoaded={(data) => onEventNameChange?.(data.title)} />
       {/* Header */}
       <div className="border-b border-gray-200 px-4 py-2.5">
         <div className="flex items-center justify-between">

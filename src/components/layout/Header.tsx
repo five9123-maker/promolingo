@@ -48,13 +48,12 @@ export default function Header({
           <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700">
             MVP
           </span>
-          <input
-            type="text"
-            value={eventName}
-            onChange={(e) => onEventNameChange(e.target.value)}
-            placeholder="Event Title(자동생성)"
-            className="rounded-md border border-gray-200 px-2 py-1 text-sm focus:border-emerald-300 focus:outline-none focus:ring-1 focus:ring-emerald-200"
-          />
+          <span
+            className="inline-block min-w-[160px] rounded-md border border-gray-100 bg-gray-50 px-2 py-1 text-sm text-gray-500"
+            title={eventName || undefined}
+          >
+            {eventName || 'Event Title(자동생성)'}
+          </span>
         </div>
 
         <div className="flex items-center gap-2">
